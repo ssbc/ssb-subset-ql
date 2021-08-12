@@ -31,27 +31,53 @@ something is wrong, it throws an error. Otherwise it returns undefined.
 
 #### `parse(query)`
 
-Takes a `query` (an object or JSON as a string), validates it, and parses it
-(if necessary) to return a query object. If anything went wrong during
+Takes a ssb-ql-0 `query` (an object or JSON as a string), validates it, and
+parses it (if necessary) to return a query object. If anything went wrong during
 validation, returns null.
 
 #### `toOperator(query)`
 
-Takes a `query` (an object or JSON as a string), validates it, parses it (if
-necessary) and then converts the query to an [ssb-db2](https://github.com/ssb-ngi-pointer/ssb-db2)
+Takes a ssb-ql-0 `query` (an object or JSON as a string), validates it, parses
+it (if necessary) and then converts the query to an [ssb-db2](https://github.com/ssb-ngi-pointer/ssb-db2)
 operator which can be inserted inside an ssb-db2 `where()`. If anything went
 wrong during validation, it throws an error.
 
 #### `stringify(query)`
 
-Takes a `query` (an object), validates it, and stringifies it into a canonical
-(stable, unaffected by how the object was created) JSON string. Returns the JSON
-string. If anything went wrong during validation, it throws an error.
+Takes a ssb-ql-0 `query` (an object), validates it, and stringifies it into a
+canonical (stable, unaffected by how the object was created) JSON string.
+Returns the JSON string. If anything went wrong during validation, it throws an
+error.
 
 #### `isEquals(query1, query2)`
 
-Takes two query objects, parses both of them, and checks that they are
+Takes two ssb-ql-0 query objects, parses both of them, and checks that they are
 equivalent.
+
+### QL1
+
+#### ~~`validate(query)`~~
+
+Not yet supported.
+
+#### `parse(query)`
+
+Takes a ssb-ql-1 `query` (an object or JSON as a string), and parses it (if
+necessary) to return a query object. If anything went wrong during validation,
+returns null.
+
+#### `toOperator(query)`
+
+Takes a ssb-ql-1 `query` (an object), and converts it to an [ssb-db2](https://github.com/ssb-ngi-pointer/ssb-db2)
+operator which can be inserted inside an ssb-db2 `where()`.
+
+#### `stringify(query)`
+
+Takes a ssb-ql-1 `query` (an object), and stringifies it as a JSON string.
+
+#### ~~`isEquals(query1, query2)`~~
+
+Not yet supported.
 
 ## License
 
