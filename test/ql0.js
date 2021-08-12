@@ -6,7 +6,7 @@ const {QL0} = require('../')
 const ALICE_ID = ssbKeys.generate().id
 const BOB_ID = ssbKeys.generate().id
 
-test('validate() happy inputs', (t) => {
+test('QL0.validate() happy inputs', (t) => {
   t.equals(
     QL0.validate({ author: ALICE_ID, type: 'vote' }),
     undefined,
@@ -15,7 +15,7 @@ test('validate() happy inputs', (t) => {
   t.end()
 })
 
-test('validate() sad inputs', (t) => {
+test('QL0.validate() sad inputs', (t) => {
   t.throws(
     () => {
       QL0.validate({ author: ALICE_ID, type: 'vote', other: 123 })
@@ -66,7 +66,7 @@ test('validate() sad inputs', (t) => {
   t.end()
 })
 
-test('parse() happy inputs', (t) => {
+test('QL0.parse() happy inputs', (t) => {
   const parsed1 = QL0.parse(`{"author":"${ALICE_ID}","type":"vote"}`)
   t.deepEquals(parsed1, { author: ALICE_ID, type: 'vote' }, 'parsed string')
 
@@ -76,7 +76,7 @@ test('parse() happy inputs', (t) => {
   t.end()
 })
 
-test('parse() sad inputs', (t) => {
+test('QL0.parse() sad inputs', (t) => {
   let timesWarned = 0
   console.warn = () => {
     ++timesWarned
@@ -91,14 +91,14 @@ test('parse() sad inputs', (t) => {
   t.end()
 })
 
-test('toOperator()', (t) => {
+test('QL0.toOperator()', (t) => {
   const actualOP = QL0.toOperator({ author: ALICE_ID, type: 'vote' })
   const expectedOP = and(author(ALICE_ID, { dedicated: true }), type('vote'))
   t.deepEquals(actualOP, expectedOP, 'output is correct')
   t.end()
 })
 
-test('stringify()', (t) => {
+test('QL0.stringify()', (t) => {
   const q1 = { author: ALICE_ID, type: 'vote' }
   t.equals(QL0.stringify(q1), JSON.stringify(q1), 'same as JSON.stringify')
 
@@ -108,7 +108,7 @@ test('stringify()', (t) => {
   t.end()
 })
 
-test('isEquals()', (t) => {
+test('QL0.isEquals()', (t) => {
   t.true(
     QL0.isEquals(
       { author: ALICE_ID, type: 'vote' },
