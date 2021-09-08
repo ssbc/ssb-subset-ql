@@ -1,7 +1,7 @@
 const test = require('tape')
 const { and, author, type } = require('ssb-db2/operators')
 const ssbKeys = require('ssb-keys')
-const {QL0} = require('../')
+const { QL0 } = require('../')
 
 const ALICE_ID = ssbKeys.generate().id
 const BOB_ID = ssbKeys.generate().id
@@ -93,7 +93,10 @@ test('QL0.parse() sad inputs', (t) => {
 
 test('QL0.toOperator()', (t) => {
   const actualOP = QL0.toOperator({ author: ALICE_ID, type: 'vote' })
-  const expectedOP = and(author(ALICE_ID, { dedicated: true }), type('vote'))
+  const expectedOP = and(
+    author(ALICE_ID, { dedicated: false }),
+    type('vote', { dedicated: false })
+  )
   t.deepEquals(actualOP, expectedOP, 'output is correct')
   t.end()
 })

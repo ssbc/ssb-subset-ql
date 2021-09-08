@@ -21,6 +21,9 @@ function parse(query) {
   }
 }
 
+// It's important to use dedicated: false because these operators are usually
+// created by remote peers and we don't want to give them permission to create
+// an unbounded amount of new bitvector files in jitdb.
 function toOperator(o) {
   if (!o.op) throw 'missing op'
 
@@ -36,10 +39,10 @@ function toOperator(o) {
     return or(...args)
   } else if (o.op === 'type') {
     if (typeof o.string !== 'string') throw "'type' must have an string option"
-    return type(o.string)
+    return type(o.string, { dedicated: false })
   } else if (o.op === 'author') {
     if (typeof o.feed !== 'string') throw "'author' must have an feed option"
-    return author(o.feed)
+    return author(o.feed, { dedicated: false })
   } else throw 'Unknown op ' + o.op
 }
 
