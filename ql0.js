@@ -15,20 +15,25 @@ const EXPECTED_KEYS = ['author', 'type']
  * @returns {undefined}
  */
 function validate(query) {
-  const keys = Object.keys(query)
+  if (!query) throw new Error('query should be truthy: ' + query)
+  if (typeof query !== 'string' && typeof query !== 'object') {
+    throw new Error('query should be a string or an object')
+  }
+  const obj = typeof query === 'string' ? JSON.parse(query) : query
+  const keys = Object.keys(obj)
   if (keys.length > EXPECTED_KEYS.length) {
-    throw new Error('query has too many fields: ' + query)
+    throw new Error('query has too many fields: ' + obj)
   }
   for (const k of EXPECTED_KEYS) {
-    if (!keys.includes(k) || !query[k]) {
-      throw new Error(`query is missing the "${k}" field: ${query}`)
+    if (!keys.includes(k) || !obj[k]) {
+      throw new Error(`query is missing the "${k}" field: ${obj}`)
     }
-    if (typeof query[k] !== 'string') {
-      throw new Error(`query "${k}" should be a valid string: ${query}`)
+    if (typeof obj[k] !== 'string') {
+      throw new Error(`query "${k}" should be a valid string: ${obj}`)
     }
   }
-  if (!Ref.isFeedId(query.author)) {
-    throw new Error(`query.author should be a valid SSB feed ID: ${query}`)
+  if (!Ref.isFeedId(obj.author)) {
+    throw new Error(`query.author should be a valid SSB feed ID: ${obj}`)
   }
 }
 
