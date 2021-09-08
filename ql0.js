@@ -62,9 +62,12 @@ function parse(query) {
 function toOperator(query) {
   validate(query)
   const actualQuery = parse(query)
+  // It's important to use dedicated: false because these operators are usually
+  // created by remote peers and we don't want to give them permission to create
+  // create an unbounded amount of new bitvector files in jitdb.
   return and(
-    author(actualQuery.author, { dedicated: true }),
-    type(actualQuery.type)
+    author(actualQuery.author, { dedicated: false }),
+    type(actualQuery.type, { dedicated: false })
   )
 }
 

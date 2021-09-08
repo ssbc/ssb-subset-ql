@@ -13,7 +13,10 @@ test('QL1.toOperator()', (t) => {
       { op: 'author', feed: ALICE_ID },
     ],
   })
-  const expectedOP = and(type('vote'), author(ALICE_ID))
+  const expectedOP = and(
+    type('vote', { dedicated: false }),
+    author(ALICE_ID, { dedicated: false })
+  )
   t.deepEquals(actualOP, expectedOP, 'output is correct')
   t.end()
 })
