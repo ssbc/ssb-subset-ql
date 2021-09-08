@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "nano-equal": "^2.0.2",
-    "ssb-db2": "^2.1.0",
+    "ssb-db2": "^2.4.0",
     "ssb-ref": "^2.13.0"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "ssb-caps": "^1.1.0",
     "ssb-fixtures": "^2.4.1",
     "ssb-keys": "^8.2.0",
-    "ssb-meta-feeds": "~0.14.0",
+    "ssb-meta-feeds": "~0.18.2",
     "tap-bail": "^1.0.0",
     "tap-spec": "^5.0.0",
     "tape": "^5.2.2"
