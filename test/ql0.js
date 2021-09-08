@@ -12,6 +12,12 @@ test('QL0.validate() happy inputs', (t) => {
     undefined,
     'validated'
   )
+
+  t.equals(
+    QL0.validate(JSON.stringify({ author: ALICE_ID, type: 'vote' })),
+    undefined,
+    'validated'
+  )
   t.end()
 })
 
@@ -62,6 +68,22 @@ test('QL0.validate() sad inputs', (t) => {
     },
     /should be a valid SSB feed ID/,
     'bad author'
+  )
+
+  t.throws(
+    () => {
+      QL0.validate(null)
+    },
+    /should be truthy/,
+    'bad input'
+  )
+
+  t.throws(
+    () => {
+      QL0.validate(3)
+    },
+    /should be a string or an object/,
+    'bad input'
   )
   t.end()
 })
