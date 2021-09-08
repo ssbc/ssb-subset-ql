@@ -26,8 +26,9 @@ const { QL0 } = require('ssb-subset-ql')
 
 #### `validate(query)`
 
-Takes a `query` (an object) and checks that it satisfies the ssb-ql-0 rules. If
-something is wrong, it throws an error. Otherwise it returns undefined.
+Takes a `query` (string or object) and checks that it satisfies the ssb-ql-0
+rules. If something is wrong, it throws an error. Otherwise it returns
+undefined.
 
 #### `parse(query)`
 
@@ -60,9 +61,11 @@ equivalent.
 
 ### QL1
 
-#### ~~`validate(query)`~~
+#### `validate(query)`
 
-Not yet supported.
+Takes a `query` (string or object) and checks that it satisfies the ssb-ql-1
+rules. If something is wrong, it throws an error. Otherwise it returns
+undefined.
 
 #### `parse(query)`
 
@@ -84,7 +87,7 @@ Takes a ssb-ql-1 `query` (an object), and stringifies it as a JSON string.
 
 #### ~~`isEquals(query1, query2)`~~
 
-Not yet supported.
+Not yet supported. Will always throw an error if you use it.
 
 ## License
 
