@@ -23,7 +23,7 @@ function parse(query) {
 
 // It's important to use dedicated: false because these operators are usually
 // created by remote peers and we don't want to give them permission to create
-// create an unbounded amount of new bitvector files in jitdb.
+// an unbounded amount of new bitvector files in jitdb.
 function toOperator(o) {
   if (!o.op) throw 'missing op'
 
