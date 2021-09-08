@@ -92,10 +92,10 @@ test('QL0.parse() sad inputs', (t) => {
 })
 
 test('QL0.toOperator()', (t) => {
-  const actualOP = QL0.toOperator({ author: ALICE_ID, type: 'vote' })
+  const actualOP = QL0.toOperator({ author: ALICE_ID, type: 'vote' }, true)
   const expectedOP = and(
-    author(ALICE_ID, { dedicated: false }),
-    type('vote', { dedicated: false })
+    author(ALICE_ID, { dedicated: true }),
+    type('vote', { dedicated: true })
   )
   t.deepEquals(actualOP, expectedOP, 'output is correct')
   t.end()

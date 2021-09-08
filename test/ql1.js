@@ -6,16 +6,19 @@ const { QL1 } = require('../')
 const ALICE_ID = ssbKeys.generate().id
 
 test('QL1.toOperator()', (t) => {
-  const actualOP = QL1.toOperator({
-    op: 'and',
-    args: [
-      { op: 'type', string: 'vote' },
-      { op: 'author', feed: ALICE_ID },
-    ],
-  })
+  const actualOP = QL1.toOperator(
+    {
+      op: 'and',
+      args: [
+        { op: 'type', string: 'vote' },
+        { op: 'author', feed: ALICE_ID },
+      ],
+    },
+    true
+  )
   const expectedOP = and(
-    type('vote', { dedicated: false }),
-    author(ALICE_ID, { dedicated: false })
+    type('vote', { dedicated: true }),
+    author(ALICE_ID, { dedicated: true })
   )
   t.deepEquals(actualOP, expectedOP, 'output is correct')
   t.end()
