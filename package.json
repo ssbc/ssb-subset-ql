@@ -1,7 +1,7 @@
 {
   "name": "ssb-subset-ql",
   "description": "Utility library to parse, validate, and compare ssb-ql-0 and ssb-ql-1",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "homepage": "https://github.com/ssb-ngi-pointer/ssb-subset-ql",
   "repository": {
     "type": "git",
