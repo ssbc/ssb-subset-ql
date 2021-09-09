@@ -1,7 +1,36 @@
 const { and, or, type, author } = require('ssb-db2/operators')
 
 function validate(query) {
-  console.warn('QL1.validate is not yet implemented')
+  if (!query) throw new Error('query should be truthy: ' + query)
+  if (typeof query !== 'string' && typeof query !== 'object') {
+    throw new Error('query should be a string or an object')
+  }
+  const obj = typeof query === 'string' ? JSON.parse(query) : query
+
+  if (!obj.op) {
+    throw new Error('query is missing "op" field ' + stringify(obj))
+  } else if (obj.op === 'and' || obj.op === 'or') {
+    if (!Array.isArray(obj.args)) {
+      throw new Error('"args" field must be an array: ' + stringify(obj))
+    }
+    for (const arg of obj.args) {
+      validate(arg)
+    }
+  } else if (obj.op === 'type') {
+    if (typeof obj.string !== 'string') {
+      throw new Error(
+        '"type" in the query must have a "string" field: ' + stringify(obj)
+      )
+    }
+  } else if (obj.op === 'author') {
+    if (typeof obj.feed !== 'string') {
+      throw new Error(
+        '"author" in the query must have a "feed" field: ' + stringify(obj)
+      )
+    }
+  } else {
+    throw new Error('Unknown "op" field: ' + obj.op)
+  }
 }
 
 function parse(query) {
@@ -9,8 +38,10 @@ function parse(query) {
   try {
     if (typeof query === 'string') {
       const parsed = JSON.parse(query)
+      validate(parsed)
       return parsed
     } else if (typeof query === 'object') {
+      validate(query)
       return query
     } else {
       throw new Error('QL1 query should be an object or string: ' + query)
@@ -21,26 +52,21 @@ function parse(query) {
   }
 }
 
-function toOperator(o, dedicated = false) {
-  if (!o.op) throw 'missing op'
+function toOperator(query, dedicated = false) {
+  validate(query)
+  const obj = parse(query)
 
-  if (o.op === 'and') {
-    if (!Array.isArray(o.args)) throw "args part of 'and' op must be an array"
-
-    let args = o.args.map((op) => toOperator(op, dedicated))
+  if (obj.op === 'and') {
+    const args = obj.args.map((op) => toOperator(op, dedicated))
     return and(...args)
-  } else if (o.op === 'or') {
-    if (!Array.isArray(o.args)) throw "args part of 'and' op must be an array"
-
-    let args = o.args.map((op) => toOperator(op, dedicated))
+  } else if (obj.op === 'or') {
+    const args = obj.args.map((op) => toOperator(op, dedicated))
     return or(...args)
-  } else if (o.op === 'type') {
-    if (typeof o.string !== 'string') throw "'type' must have an string option"
-    return type(o.string, { dedicated })
-  } else if (o.op === 'author') {
-    if (typeof o.feed !== 'string') throw "'author' must have an feed option"
-    return author(o.feed, { dedicated })
-  } else throw 'Unknown op ' + o.op
+  } else if (obj.op === 'type') {
+    return type(obj.string, { dedicated })
+  } else if (obj.op === 'author') {
+    return author(obj.feed, { dedicated })
+  }
 }
 
 function stringify(query) {
