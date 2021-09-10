@@ -94,6 +94,14 @@ test('QL0.validate() sad inputs', (t) => {
 
   t.throws(
     () => {
+      QL0.validate({ author: ALICE_ID, type: 'vote', private: true })
+    },
+    /if "private" is true, then "type" MUST be null/,
+    'private versus vote'
+  )
+
+  t.throws(
+    () => {
       QL0.validate({ author: '@fafa', type: 'vote', private: false })
     },
     /should be a valid SSB feed ID/,
