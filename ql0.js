@@ -40,6 +40,11 @@ function validate(query) {
       )
     }
   }
+  if (obj.private && obj.type) {
+    throw new Error(
+      `if "private" is true, then "type" MUST be null: ${JSON.stringify(obj)}`
+    )
+  }
   if (!Ref.isFeedId(obj.author)) {
     throw new Error(`query.author should be a valid SSB feed ID: ${obj}`)
   }
@@ -76,11 +81,15 @@ function parse(query) {
 function toOperator(query, dedicated = false) {
   validate(query)
   const actualQuery = parse(query)
-  return and(
-    author(actualQuery.author, { dedicated }),
-    type(actualQuery.type, { dedicated }),
-    actualQuery.private ? isPrivate() : isPublic()
-  )
+  if (actualQuery.private) {
+    return and(author(actualQuery.author, { dedicated }), isPrivate())
+  } else {
+    return and(
+      author(actualQuery.author, { dedicated }),
+      type(actualQuery.type, { dedicated }),
+      isPublic()
+    )
+  }
 }
 
 /**
