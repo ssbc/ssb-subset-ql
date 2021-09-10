@@ -8,7 +8,7 @@ const deepEqual = require('nano-equal')
  * @property {string} type
  */
 
-const EXPECTED_KEYS = ['author', 'type']
+const EXPECTED_KEYS = ['author', 'type', 'private']
 
 /**
  * @param {Partial<QueryQL0>} [query]
@@ -25,11 +25,19 @@ function validate(query) {
     throw new Error('query has too many fields: ' + obj)
   }
   for (const k of EXPECTED_KEYS) {
-    if (!keys.includes(k) || !obj[k]) {
+    if (!keys.includes(k)) {
       throw new Error(`query is missing the "${k}" field: ${obj}`)
     }
-    if (typeof obj[k] !== 'string') {
-      throw new Error(`query "${k}" should be a valid string: ${obj}`)
+    if (k === 'author' && typeof obj[k] !== 'string') {
+      throw new Error(`query "${k}" should be a string: ${JSON.stringify(obj)}`)
+    } else if (k === 'type' && typeof obj[k] !== 'string' && obj[k] !== null) {
+      throw new Error(
+        `query "${k}" should be a string or null: ${JSON.stringify(obj)}"`
+      )
+    } else if (k === 'private' && typeof obj[k] !== 'boolean') {
+      throw new Error(
+        `query "${k}" should be a boolean: ${JSON.stringify(obj)}`
+      )
     }
   }
   if (!Ref.isFeedId(obj.author)) {
@@ -55,7 +63,7 @@ function parse(query) {
       throw new Error('QL0 query should be an object or string: ' + query)
     }
   } catch (err) {
-    console.warn('Error parsing QL0 query: ' + query)
+    console.warn('Error parsing QL0 query: ' + JSON.stringify(query))
     return null
   }
 }
@@ -80,8 +88,9 @@ function toOperator(query, dedicated = false) {
  */
 function stringify(query) {
   validate(query)
+  const { author, type, private } = query
   // Doesn't use JSON.stringify because we want to ensure this exact order
-  return `{"author":"${query.author}","type":"${query.type}"}`
+  return `{"author":"${author}","type":"${type}","private":${private}}`
 }
 
 /**
