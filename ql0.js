@@ -1,5 +1,5 @@
 const Ref = require('ssb-ref')
-const { and, author, type } = require('ssb-db2/operators')
+const { and, author, type, isPrivate, isPublic } = require('ssb-db2/operators')
 const deepEqual = require('nano-equal')
 
 /**
@@ -78,7 +78,8 @@ function toOperator(query, dedicated = false) {
   const actualQuery = parse(query)
   return and(
     author(actualQuery.author, { dedicated }),
-    type(actualQuery.type, { dedicated })
+    type(actualQuery.type, { dedicated }),
+    actualQuery.private ? isPrivate() : isPublic()
   )
 }
 
