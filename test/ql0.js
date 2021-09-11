@@ -189,6 +189,13 @@ test('QL0.stringify()', (t) => {
   const q2 = { type: 'vote', author: ALICE_ID, private: false }
   t.equals(QL0.stringify(q2), JSON.stringify(q1), 'order is author & type')
   t.notEquals(QL0.stringify(q2), JSON.stringify(q2), 'order is stable')
+
+  const q3 = { author: ALICE_ID, type: null, private: true }
+  const q3str = QL0.stringify(q3)
+  t.equals(q3str, JSON.stringify(q3), 'same as JSON')
+  const parsed3 = QL0.parse(q3str)
+  t.deepEquals(parsed3, q3, 'supports stringifying null type')
+
   t.end()
 })
 

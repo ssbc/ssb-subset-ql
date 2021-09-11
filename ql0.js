@@ -100,7 +100,11 @@ function stringify(query) {
   validate(query)
   const { author, type, private } = query
   // Doesn't use JSON.stringify because we want to ensure this exact order
-  return `{"author":"${author}","type":"${type}","private":${private}}`
+  if (type === null) {
+    return `{"author":"${author}","type":null,"private":${private}}`
+  } else {
+    return `{"author":"${author}","type":"${type}","private":${private}}`
+  }
 }
 
 /**
