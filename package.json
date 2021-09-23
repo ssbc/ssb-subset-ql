@@ -24,7 +24,6 @@
     "ssb-caps": "^1.1.0",
     "ssb-fixtures": "^2.4.1",
     "ssb-keys": "^8.2.0",
-    "ssb-meta-feeds": "~0.18.2",
     "tap-bail": "^1.0.0",
     "tap-spec": "^5.0.0",
     "tape": "^5.2.2"
