@@ -2,7 +2,5 @@
 #
 # SPDX-License-Identifier: Unlicense
 
-node_modules
-pnpm-lock.yaml
-.nyc_output
-coverage
+semi: false
+singleQuote: true

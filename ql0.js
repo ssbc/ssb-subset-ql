@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 Andre 'Staltz' Medeiros
+//
+// SPDX-License-Identifier: LGPL-3.0-only
+
 const Ref = require('ssb-ref')
 const { and, author, type, isPrivate, isPublic } = require('ssb-db2/operators')
 const deepEqual = require('nano-equal')

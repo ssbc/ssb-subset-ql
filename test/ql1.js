@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 Andre 'Staltz' Medeiros
+//
+// SPDX-License-Identifier: Unlicense
+
 const test = require('tape')
 const { and, author, type } = require('ssb-db2/operators')
 const ssbKeys = require('ssb-keys')

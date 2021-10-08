@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 Andre 'Staltz' Medeiros
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # ssb-subset-ql
 
 Utility library to parse, validate, and compare ssb-ql-0 and ssb-ql-1 queries

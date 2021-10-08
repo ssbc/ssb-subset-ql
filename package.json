@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git://github.com/ssb-ngi-pointer/ssb-subset-ql.git"
   },
+  "files": [
+    "*.js",
+    "package.json.license",
+    "LICENSES/*"
+  ],
   "dependencies": {
     "nano-equal": "^2.0.2",
     "ssb-db2": "^2.4.0",
@@ -39,6 +44,6 @@
       "pre-commit": "npm run format-code-staged"
     }
   },
-  "author": "Andre Staltz <contact@staltz.com>",
+  "author": "Andre 'Staltz' Medeiros <contact@staltz.com>",
   "license": "LGPL-3.0"
 }
