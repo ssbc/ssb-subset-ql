@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "nano-equal": "^2.0.2",
-    "ssb-db2": "^2.4.0",
+    "ssb-db2": "^3.0.0",
     "ssb-ref": "^2.13.0"
   },
   "devDependencies": {
