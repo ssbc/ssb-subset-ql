@@ -182,7 +182,7 @@ test('QL0.toOperator()', (t) => {
     true
   )
   const expectedOP2 = and(author(ALICE_ID, { dedicated: true }), isPrivate())
-  t.deepEquals(actualOP2, expectedOP2, 'output is correct')
+  t.equals(JSON.stringify(expectedOP2), JSON.stringify(actualOP2))
   t.end()
 })
 
