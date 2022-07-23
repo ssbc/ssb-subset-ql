@@ -29,12 +29,11 @@
     "ssb-caps": "^1.1.0",
     "ssb-fixtures": "^2.4.1",
     "ssb-keys": "^8.2.0",
-    "tap-bail": "^1.0.0",
-    "tap-spec": "^5.0.0",
+    "tap-arc": "^0.3.5",
     "tape": "^5.2.2"
   },
   "scripts": {
-    "test": "tape test/*.js | tap-bail | tap-spec",
+    "test": "tape test/*.js | tap-arc --bail",
     "coverage": "nyc --reporter=lcov npm test",
     "format-code": "prettier --write \"*.js\" \"test/*.js\"",
     "format-code-staged": "pretty-quick --staged --pattern \"*.js\" --pattern \"test/*.js\""
